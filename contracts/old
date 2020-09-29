@@ -1,0 +1,28 @@
+pragma solidity ^0.5.7;
+
+import { Auction } from './Auction.sol';
+import {Oracle} from './Oracle.sol';
+
+contract AuctionFactory {
+    Oracle oracle;
+    address[] public auctions;
+    mapping(address=>Auction) auctionList;
+    event AuctionCreated(address auctionContract, address owner, uint numAuctions, address[] allAuctions);
+    event getAddress(address);
+    event getBlockNumber(uint);
+    constructor()public {
+    }
+
+    function createAuction( uint endBid, address _oracle) public returns(address) {
+        oracle = Oracle(_oracle);
+        Auction newAuction = new Auction( msg.sender, endBid, _oracle);
+        emit getAddress(address(newAuction));
+        oracle.operationCallback(msg.sender, "Created a new Auction!", address(newAuction));
+        oracle.newAuctionCallback(address(newAuction));
+        return address(newAuction);
+    }
+
+    function allAuctions() view public returns (address[] memory) {
+        return auctions;
+    }
+}

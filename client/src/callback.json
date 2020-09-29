@@ -1,0 +1,18 @@
+{
+    "abi":[
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "winner",
+                    "type": "string"
+                }
+            ],
+            "name": "oracleCallback",
+            "outputs": [],
+            "payable" : false,
+            "stateMutability" : "nonpayable",
+            "type": "function"
+        }
+    ]
+}
